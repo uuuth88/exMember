@@ -29,7 +29,7 @@
 </style>
 </head>
 <body>
-<form action="#" method="post">
+<form action="joinSuccess.jsp" method="post">
 <table>
     <tr>
         <td colspan="3">회원가입 폼</td>
