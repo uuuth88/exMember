@@ -65,7 +65,8 @@ public class MemberDAO {
 //			rs에 저장한 데이터가 있다면 MemberVO 객체에 저장
 			if(rs.next()) {
 				member.setId(rs.getString("id"));
-				member.setPw(rs.getString("pw"));
+				//rs엔 pw값은 저장되지 않는다 쿼리문 조회는 id, name, nickname만..
+				//member.setPw(rs.getString("pw"));
 				member.setName(rs.getString("name"));
 				member.setNick(rs.getString("nickname"));
 			}
