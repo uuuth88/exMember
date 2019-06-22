@@ -45,46 +45,36 @@ public class MemberDAO {
 		}
 	}
 	
-	public MemberVO login(String id) {
+//	로그인 메소드
+	public MemberVO login(String id, String pw) {
+//		로그인 정보를 담을 MemberVO객체 생성
 		MemberVO member = new MemberVO();
 		ResultSet rs = null;
 		try {
+//			JDBC과정			
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe",
 											   "exLogin", 
 											   "exLogin");
-			String sql = "select id, name, nickname from memberInfo where id=?";
+			String sql = "select id, name, nickname from memberInfo where id=? AND pw=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, id);
+			pstmt.setString(2, pw);
+//			ResultSet객체에 쿼리문 조회 결과를 저장
 			rs = pstmt.executeQuery();
-			rs.next();
-			member.setId(rs.getString("id"));
-			member.setName(rs.getString("name"));
-			member.setNick(rs.getString("nickname"));
+//			rs에 저장한 데이터가 있다면 MemberVO 객체에 저장
+			if(rs.next()) {
+				member.setId(rs.getString("id"));
+				member.setPw(rs.getString("pw"));
+				member.setName(rs.getString("name"));
+				member.setNick(rs.getString("nickname"));
+			}
 		}catch(Exception e) {
 			e.printStackTrace();
 		}finally {
-			try {
-				if(rs!=null) {
-					rs.close();
-				}
-			}catch(Exception e) {
-				e.printStackTrace();
-			}
-			try {
-				if(pstmt!=null) {
-					pstmt.close();
-				}
-			}catch(Exception e) {
-				e.printStackTrace();
-			}
-			try {
-				if(conn!=null) {
-					conn.close();
-				}
-			}catch(Exception e) {
-				e.printStackTrace();
-			}
+			try {if(rs!=null){rs.close();}}catch(Exception e){e.printStackTrace();}
+			try {if(pstmt!=null){pstmt.close();}}catch(Exception e){e.printStackTrace();}
+			try {if(conn!=null){conn.close();}}catch(Exception e){e.printStackTrace();}
 		}
 		
 		return member;
