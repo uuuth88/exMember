@@ -13,7 +13,7 @@ public class MemberDAO {
 			//DB와 연결시켜줄 드라이버 로딩
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			//DB 연결 설정
-			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE",
+			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe",
 											   "exLogin", 
 											   "exLogin");
 			//회원 정보를 저장할 SQL문 작성
@@ -43,5 +43,50 @@ public class MemberDAO {
 				e.printStackTrace();
 			}
 		}
+	}
+	
+	public MemberVO login(String id) {
+		MemberVO member = new MemberVO();
+		ResultSet rs = null;
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe",
+											   "exLogin", 
+											   "exLogin");
+			String sql = "select id, name, nickname from memberInfo where id=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
+			rs.next();
+			member.setId(rs.getString("id"));
+			member.setName(rs.getString("name"));
+			member.setNick(rs.getString("nickname"));
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(rs!=null) {
+					rs.close();
+				}
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+			try {
+				if(pstmt!=null) {
+					pstmt.close();
+				}
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+			try {
+				if(conn!=null) {
+					conn.close();
+				}
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return member;
 	}
 }
