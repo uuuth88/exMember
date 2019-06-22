@@ -1,7 +1,6 @@
 package com.ex.bbs;
 
 import java.io.IOException;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -30,9 +29,12 @@ public class JoinServlet extends HttpServlet {
 		MemberDAO dao = new MemberDAO();
 		dao.add(vo);
 		
+		//회원가입할 때 입력한 정보들을 바인딩.
+		request.setAttribute("memberVO", vo);
+		
+		
 		//4. 작업을 마치면 joinSuccess.jsp로 포워딩.
 		RequestDispatcher rd = request.getRequestDispatcher("joinSuccess.jsp");
 		rd.forward(request, response);
 	}
-
 }
