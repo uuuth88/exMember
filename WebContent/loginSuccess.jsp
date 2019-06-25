@@ -16,9 +16,9 @@
 <p>이름 : ${loginMember.name }</p>
 <p>닉네임 : ${loginMember.nick }</p>
 <br><hr><br>
-<a href="memberlist.jsp">회원목록</a>
+<a href="list">회원목록</a>
 <br><br>
 <a href="modify.jsp">수정</a>
-<a href="delete.jsp">삭제</a>
+<a href="delete.jsp">탈퇴</a>
 </body>
 </html>

@@ -1,6 +1,8 @@
 package com.ex.bbs;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MemberDAO {
 	
@@ -79,5 +81,47 @@ public class MemberDAO {
 		}
 		
 		return member;
+	}
+	
+//	리스트 메소드
+	public List<MemberVO> list(){
+//		멤버 정보 담을 리스트 객체 생성
+		List<MemberVO> list = new ArrayList<>();
+//		여기에 Member객체 생성하지 않도록 조심!!!
+//		MemberVO member = new MemberVO();
+		ResultSet rs = null;
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe",
+											   "exLogin", 
+											   "exLogin");
+			
+			String sql = "select * from memberInfo";
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+//				Member객체 생성 위치에 주의하자 만약 try구문 밖에
+//				생성한다면 가장 최근에 저장된 Member객체 하나만 계속 돌려쓴다.
+//				즉, rs테이블을 하나하나 검색해 가면서 member객체를 채워넣어야 하는데
+//				커서가 다음 내용으로 넘어가면 새로운 객체를 생성하지 않고
+//				구문 밖에서 선언한 member객체를 다시 불러와 그전에 저장한 정보 위에
+//				덮어쓰기를 하게 되어 리스트를 호출할 때 같은 회원만 불러오게 된다.
+//				내가 그런 오류를 겪어서 쓰는 말!				
+				MemberVO member = new MemberVO();
+				member.setId(rs.getString("id"));
+				member.setPw(rs.getString("pw"));
+				member.setName(rs.getString("name"));
+				member.setNick(rs.getString("nickname"));
+				list.add(member);
+			}
+			return list;
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {if(rs!=null){rs.close();}}catch(Exception e){e.printStackTrace();}
+			try {if(pstmt!=null){pstmt.close();}}catch(Exception e){e.printStackTrace();}
+			try {if(conn!=null){conn.close();}}catch(Exception e){e.printStackTrace();}
+		}
+		return list;
 	}
 }
