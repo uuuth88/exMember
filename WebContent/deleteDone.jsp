@@ -10,5 +10,6 @@
 <h1>회원탈퇴가 잘 이루어졌습니다!</h1>
 <br><hr><br>
 <a href="login.jsp">로그인</a>
+<a href="list">회원목록</a>
 </body>
 </html>
