@@ -5,9 +5,7 @@ import java.io.IOException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.*;
 
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
@@ -22,8 +20,12 @@ public class LoginServlet extends HttpServlet {
 		MemberVO member = new MemberVO();
 		MemberDAO dao = new MemberDAO();
 		member = dao.login(id, pw);
+		
 //		3.loginMember 이름으로 저장 후 바인딩
-		request.setAttribute("loginMember", member);
+		HttpSession session = request.getSession();
+		session.setAttribute("loginMember", member);
+//		request.setAttribute("loginMember", member);
+		
 //		4.loginSuccess.jsp로 포워딩
 		RequestDispatcher rd = request.getRequestDispatcher("loginSuccess.jsp");
 		rd.forward(request, response);

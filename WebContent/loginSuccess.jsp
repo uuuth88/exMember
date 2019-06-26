@@ -2,6 +2,7 @@
     pageEncoding="UTF-8" import="com.ex.bbs.MemberVO"%>
 <% 
 	request.setCharacterEncoding("utf-8");
+	MemberVO loginMember = (MemberVO)session.getAttribute("loginMember");
 %>
 <!DOCTYPE html>
 <html>
@@ -18,7 +19,7 @@
 <br><hr><br>
 <a href="list">회원목록</a>
 <br><br>
-<a href="modify.jsp">수정</a>
+<a href="modify.jsp?id=${loginMember.id }">수정</a>
 <a href="delete.jsp">탈퇴</a>
 </body>
 </html>

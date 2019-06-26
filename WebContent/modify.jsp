@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="com.ex.bbs.MemberVO"%>
+<%
+	MemberVO loginMember = (MemberVO)session.getAttribute("loginMember");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -36,7 +39,7 @@
     </tr>
     <tr>
         <td>아이디</td>
-        <td><input type="text" name="id" readonly value="아이디 출력"></td>
+        <td><input type="text" name="id" readonly value="${loginMember.id}"></td>
     </tr>
     <tr>
         <td>비밀번호</td>
@@ -44,7 +47,7 @@
     </tr>
     <tr>
         <td>이름</td>
-        <td><input type="text" name="name" readonly value="이름 출력"></td>
+        <td><input type="text" name="name" readonly value="${loginMember.name}"></td>
     </tr>
     <tr>
         <td>별명</td>

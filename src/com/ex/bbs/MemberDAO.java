@@ -95,7 +95,6 @@ public class MemberDAO {
 			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe",
 											   "exLogin", 
 											   "exLogin");
-			
 			String sql = "select * from memberInfo";
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
@@ -123,5 +122,26 @@ public class MemberDAO {
 			try {if(conn!=null){conn.close();}}catch(Exception e){e.printStackTrace();}
 		}
 		return list;
+	}
+
+//	회원 정보 수정하는 메소드
+	public void modify(String id, String pw, String nick) {
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe",
+												"exLogin", 
+												"exLogin");
+			String sql = "UPDATE memberInfo SET pw=?, nickname=? WHERE id=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, pw);
+			pstmt.setString(2, nick);
+			pstmt.setString(3, id);
+			pstmt.executeUpdate();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {if(pstmt!=null){pstmt.close();}}catch(Exception e){e.printStackTrace();}
+			try {if(conn!=null){conn.close();}}catch(Exception e){e.printStackTrace();}
+		}
 	}
 }

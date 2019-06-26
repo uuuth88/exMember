@@ -28,4 +28,4 @@ SELECT id, name, nickname FROM memberInfo WHERE id=? AND pw=?;
 SELECT * FROM memberInfo;
 
 --정보 수정하는 쿼리
-UPDATE memberInfo SET name=?, nickname=? WHERE id=?;
+UPDATE memberInfo SET pw=?, nickname=? WHERE id=?;
