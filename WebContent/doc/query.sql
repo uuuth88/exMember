@@ -29,3 +29,6 @@ SELECT * FROM memberInfo;
 
 --정보 수정하는 쿼리
 UPDATE memberInfo SET pw=?, nickname=? WHERE id=?;
+
+--회원 탈퇴 쿼리
+DELETE FROM memberInfo WHERE id = ?

@@ -20,6 +20,6 @@
 <a href="list">회원목록</a>
 <br><br>
 <a href="modify.jsp?id=${loginMember.id }">수정</a>
-<a href="delete.jsp">탈퇴</a>
+<a href="delete">탈퇴</a>
 </body>
 </html>

@@ -144,4 +144,23 @@ public class MemberDAO {
 			try {if(conn!=null){conn.close();}}catch(Exception e){e.printStackTrace();}
 		}
 	}
+	
+//	회원 탈퇴하는 메소드
+	public void delete(String id) {
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe",
+												"exLogin", 
+												"exLogin");
+			String sql = "DELETE FROM memberInfo where id = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, id);
+			pstmt.executeUpdate();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {if(pstmt!=null){pstmt.close();}}catch(Exception e){e.printStackTrace();}
+			try {if(conn!=null){conn.close();}}catch(Exception e){e.printStackTrace();}
+		}
+	}
 }
