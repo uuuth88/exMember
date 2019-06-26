@@ -29,14 +29,14 @@
 </style>
 </head>
 <body>
-<form action="join" method="post">
+<form action="modify" method="post">
 <table>
     <tr>
         <td colspan="3">회원수정 폼</td>
     </tr>
     <tr>
         <td>아이디</td>
-        <td><input type="text" name="id"></td>
+        <td><input type="text" name="id" readonly value="아이디 출력"></td>
     </tr>
     <tr>
         <td>비밀번호</td>
@@ -44,7 +44,7 @@
     </tr>
     <tr>
         <td>이름</td>
-        <td><input type="text" name="name"></td>
+        <td><input type="text" name="name" readonly value="이름 출력"></td>
     </tr>
     <tr>
         <td>별명</td>
